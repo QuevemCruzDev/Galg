@@ -21,10 +21,15 @@
 
             for (int i = 0; i < comandLine.Count(); i++)
             {
-
-                double number = double.Parse(comandLine[i]);
-                Numbers.Add(number);
-                Console.WriteLine($"{comand.ToUpper()}: {comandLine[i]}");
+                if (!double.TryParse(comandLine[i], out double number))
+                {
+                    Console.WriteLine($"{comandLine[i]} não é um numero valido");
+                }
+                else
+                {
+                    Numbers.Add(number);
+                    Console.WriteLine($"{comand.ToUpper()}: {comandLine[i]}");
+                }
             }
             switch (comand.ToLower())
             {
@@ -53,8 +58,8 @@
     }
     public static double Sum(List<double> numbers)
     {
-        double result = 0;
-        for (int i = 0; i < numbers.Count(); i++)
+        double result = numbers[0];
+        for (int i = 1; i < numbers.Count(); i++)
         {
             result = result + numbers[i];
         }
@@ -63,54 +68,34 @@
 
     public static double Sub(List<double> numbers)
     {
-        double result = 0;
-        for (int i = 0; i < numbers.Count(); i++)
+        double result = numbers[0];
+        for (int i = 1; i < numbers.Count; i++)
         {
 
-            if (result != 0)
-            {
-                result = result - numbers[i];
-            }
-            else
-            {
-                result = numbers[i];
-            }
+            result = result - numbers[i];
+
         }
         return result;
     }
     public static double Mult(List<double> numbers)
     {
-        double result = 0;
-        for (int i = 0; i < numbers.Count(); i++)
+        double result = numbers[0];
+        for (int i = 1; i < numbers.Count; i++)
         {
 
-            if (result != 0)
-            {
-                result = result * numbers[i];
-            }
-            else
-            {
-                result = numbers[i];
-            }
+            result = result * numbers[i];
+
         }
         return result;
     }
     public static double Div(List<double> numbers)
     {
 
-        double result = 0;
-        for (int i = 0; i < numbers.Count(); i++)
+        if (numbers.Count < 2 || numbers[1] == 0)
         {
-
-            if (result != 0)
-            {
-                result = result / numbers[i];
-            }
-            else
-            {
-                result = numbers[i];
-            }
+            Console.WriteLine("Erro em divisão por 0");
+            return 0;
         }
-        return result;
+        return numbers[0] / numbers[1];
     }
 }
